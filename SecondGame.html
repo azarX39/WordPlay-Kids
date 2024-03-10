@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Word Guessing Game</title>
+    <link rel="icon" href="C:\Users\sadsa\Documents\Websites Template\rent4u-html\images\logobr.png" type="image/gif" />
+
+
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="css/responsive.css" rel="stylesheet" />
+</head>
+
+<body>
+    <h1>Word Guessing Game</h1>
+    <div id="clue"></div>
+    <input type="text" id="userInput" placeholder="Enter your guess">
+    <button onclick="checkGuess()">Check Guess</button>
+
+    <script>
+        const words = [
+            { clue: "Animal with black and white stripes", answer: "zebra" },
+            { clue: "A yellow fruit", answer: "banana" },
+            { clue: "Used for writing and drawing", answer: "pencil" },
+            // Add more words and clues here
+        ];
+
+        let currentWordIndex = 0;
+        let currentClue = words[currentWordIndex].clue.toLowerCase();
+        let currentAnswer = words[currentWordIndex].answer;
+
+        document.getElementById('clue').innerHTML = `<p>${currentClue}</p>`;
+
+        function checkGuess() {
+            const userGuess = document.getElementById('userInput').value.toLowerCase();
+            if (userGuess === currentAnswer) {
+                alert("Congratulations! You guessed it right!");
+                currentWordIndex++;
+
+                if (currentWordIndex < words.length) {
+                    currentClue = words[currentWordIndex].clue.toLowerCase();
+                    currentAnswer = words[currentWordIndex].answer;
+
+                    document.getElementById('clue').innerHTML = `<p>${currentClue}</p>`;
+                    document.getElementById('userInput').value = '';
+                } else {
+                    alert("You completed all words!");
+                }
+            } else {
+                alert("Try again!");
+            }
+        }
+    </script>
+</body>
+
+</html>

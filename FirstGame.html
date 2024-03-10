@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Unscramble the Word Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .jumbled-letters {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        #userWord {
+            margin: 20px;
+        }
+        
+    </style>
+    <!-- slider stylesheet -->
+ <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+ <!-- bootstrap core css -->
+ <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+ <!-- fonts style -->
+ <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet">
+
+
+          <link href="css/responsive.css" rel="stylesheet" />
+</head>
+
+<body>
+    <h1>Unscramble the Word Game</h1>
+    <div class="jumbled-letters" id="jumbledWord"></div>
+    <br>
+    <input type="text" id="userWord" placeholder="Your guess">
+    <button onclick="checkWord()"class="btn-box"class="box">Submit</button>
+    <p id="result"></p>
+
+    <script>
+        var words = {
+            easy: ['CAT', 'DOG', 'HAT'],
+            medium: ['APPLE', 'HOUSE', 'HAPPY'],
+            hard: ['ELEPHANT', 'PARADISE', 'MAGNIFICENT']
+        };
+
+        var currentLevel = 'easy';
+        var randomIndex = Math.floor(Math.random() * words[currentLevel].length);
+        var secretWord = words[currentLevel][randomIndex];
+        var jumbledWord = secretWord.split('').sort(() => Math.random() - 0.5).join('');
+
+        document.getElementById("jumbledWord").innerText = jumbledWord;
+
+        function checkWord() {
+            var userWord = document.getElementById("userWord").value.toUpperCase();
+            if (userWord === secretWord) {
+                document.getElementById("result").innerText = "Congratulations! You unscrambled the word!";
+                setTimeout(nextLevel, 2000); // Move to the next level after 2 seconds
+            } else {
+                document.getElementById("result").innerText = "Sorry, that's not the correct word. Try again!";
+            }
+        }
+
+        function nextLevel() {
+            if (currentLevel === 'easy') {
+                currentLevel = 'medium';
+            } else if (currentLevel === 'medium') {
+                currentLevel = 'hard';
+            } else {
+                document.getElementById("result").innerText = "You completed all levels!";
+                return;
+            }
+
+            var randomIndex = Math.floor(Math.random() * words[currentLevel].length);
+            secretWord = words[currentLevel][randomIndex];
+            jumbledWord = secretWord.split('').sort(() => Math.random() - 0.5).join('');
+            document.getElementById("jumbledWord").innerText = jumbledWord;
+            document.getElementById("result").innerText = "";
+        }
+    </script>
+</body>
+
+</html>

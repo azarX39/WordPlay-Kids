@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Word Association Game</title>
+ <!-- slider stylesheet -->
+ <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+ <!-- bootstrap core css -->
+ <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+ <!-- fonts style -->
+ <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet">
+
+
+          <link href="css/responsive.css" rel="stylesheet" />
+ 
+</head>
+
+<body>
+    <h1>Welcome to the Word Association Game!</h1>
+    <div class="game-container">
+        <p>Word: <span id="word">Apple</span></p>
+        <input type="text" id="userWord" placeholder="Type your word">
+        <button onclick="checkWord()">Submit</button>
+        <button onclick="provideHint()">Hint</button>
+        <p id="result"></p>
+        <p id="hint" style="display: none;"></p>
+    </div>
+
+    <script>
+        const words = ["Apple", "Car", "Book", "Sun", "Coffee"]; // Words for the game
+        const hints = ["Fruit", "Vehicle", "Reading", "Star", "Beverage"]; // Hints related to words
+        let index = 0; // Index to keep track of the current word
+
+        // Function to check the user input
+        function checkWord() {
+            const userWord = document.getElementById("userWord").value.toLowerCase();
+            const currentWord = words[index].toLowerCase();
+
+            // Check if the user input matches the associated word
+            if (userWord === currentWord) {
+                document.getElementById("result").textContent = "Congratulations! You got it right!";
+                index++; // Move to the next word
+                if (index < words.length) {
+                    document.getElementById("word").textContent = words[index]; // Display the next word
+                    document.getElementById("hint").style.display = "none"; // Hide the hint for the next word
+                } else {
+                    document.getElementById("word").textContent = "Game Over"; // If all words are done
+                }
+            } else {
+                document.getElementById("result").textContent = "Try again!";
+            }
+            document.getElementById("userWord").value = ""; // Clear the input field
+        }
+
+        // Function to provide a hint for the current word
+        function provideHint() {
+            document.getElementById("hint").style.display = "block";
+            document.getElementById("hint").textContent = `Hint: ${hints[index]}`;
+        }
+    </script>
+</body>
+
+</html>
